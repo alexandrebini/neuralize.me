@@ -23,28 +23,33 @@ class Train
   
   key :language, String
   key :thread_id, Integer
+  key :som_id, Integer
   
   timestamps!
 
   def start
-    new_som = som
+    som = new_som
     new_thread = Thread.new do
-      Thread.current[:som] = new_som
-      #Thread.current[:som].start!
-      sleep 60
+      som.start!
     end
-    update_attributes(:finished => false, :start_at => new_som.start_at, :thread_id => new_thread.object_id)
+    update_attributes(:finished => false, :start_at => som.start_at, :som_id => som.object_id, :thread_id => new_thread.object_id)
   end
 
   def update_positions
-    if thr = thread
-      som = thr[:som]
-      update_attributes(:results => som.results, :current_training_time => som.current_training_time, :finished => som.finished, :end_at => som.end_at)
+    unless finished
+      if som
+        update_attributes(:results => som.results, :current_training_time => som.current_training_time, :finished => som.finished, :end_at => som.end_at)
+      end
+    end
+  end
+  
+  def som
+    unless som_id.blank?
+      ObjectSpace._id2ref(som_id) #retrieve from thread
     end
   end
 
-  private
-    def som
+    def new_som
       case language
       when 'java' then nil
       when 'c' then nil
@@ -52,6 +57,9 @@ class Train
         RubySOM.new(som_attributes)
       end
     end
+    
+  private
+
     
     def som_attributes
       {
@@ -64,10 +72,13 @@ class Train
     end
     
     def thread
-      Thread.list.each do |thr|
-        return thr if thr.object_id == thread_id
+      unless thread_id.blank?
+        Thread.list.each do |thr|
+          return thr if thr.object_id == thread_id
+        end
       end
     end
+    
 
   class << self
     def generate
