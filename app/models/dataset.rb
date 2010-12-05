@@ -1,16 +1,16 @@
 class Dataset
   include MongoMapper::Document
   
-  many :columns, :class_name=>"DatasetColumn"
-  key :dataset_lines, Array
+  many :columns, :class_name => "DatasetColumn"
+  many :lines, :class_name => "DatasetLine"
   key :title, String
   key :description, String
 
   timestamps!
 
-  def lines
-    dataset_lines.map {|r| DatasetLine.find(r) }
-  end
+  #def lines
+  #  dataset_lines.map {|r| DatasetLine.find(r) }
+  #end
 
   def to_json(options = {})
     super({:methods => [:lines]}.merge(options))

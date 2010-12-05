@@ -1,7 +1,5 @@
 package neuralize.me.db;
 
-import neuralize.me.model.Dataset;
-
 import com.mongodb.DBObject;
 
 public class DatasetDB extends Connection{
@@ -9,7 +7,6 @@ public class DatasetDB extends Connection{
 		super("datasets");
 		DBObject a = collection.findOne();
 		System.out.println(a);
-		
-
+		System.out.println(a.get("lines"));
 	}
 }

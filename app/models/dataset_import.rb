@@ -7,7 +7,7 @@ class DatasetImport
       line = DatasetLine.new( :data => r )
       line.create_picture("db/datasets/#{name}/images/#{r[0].downcase}.#{extension}")
       line.save
-      d.dataset_lines << line.id
+      d.lines << line
     end
 
     columns = Importer.datadescription(File.open("db/datasets/#{name}/#{name}.names"), "\n", " # ")

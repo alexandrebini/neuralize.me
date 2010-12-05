@@ -1,10 +1,10 @@
 class DatasetColumn
-  include MongoMapper::EmbeddedDocument
+  include MongoMapper::Document
 
   key :title, String
   key :description, String
   key :included, Boolean, :default=>true
-  key :dataset_id, String
+  key :dataset_id, ObjectId
   
   belongs_to :dataset
   

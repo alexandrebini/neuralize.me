@@ -3,6 +3,7 @@ class DatasetLine
   include HasPicture
 
   key :data, Array
+  key :dataset_id, ObjectId
   
   mount_uploader :picture, PictureUploader
   
