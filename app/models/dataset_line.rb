@@ -7,7 +7,7 @@ class DatasetLine
   mount_uploader :picture, PictureUploader
   
   def to_json(options = {})
-    super({:methods => [:pictures]}.merge(options))
+    super( { :methods => [:pictures] }.merge(options) )
   end
   
   def pictures
