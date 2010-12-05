@@ -1,5 +1,12 @@
 package neuralize.me.db;
 
-public class TrainDB {
+import com.mongodb.DBObject;
+
+public class TrainDB extends Connection{
+	
+	public TrainDB(){
+		super("trains");
+		DBObject a = collection.findOne();
+	}
 	
 }
