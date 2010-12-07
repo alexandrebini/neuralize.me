@@ -1,29 +1,30 @@
 package neuralize.me.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.mongodb.BasicDBList;
-import com.mongodb.DBObject;
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
+import com.google.code.morphia.annotations.Property;
+@SuppressWarnings("rawtypes")
 
+@Entity(value = "dataset_lines", noClassnameStored=true)
 public class DatasetLine {
-	public DatasetLine(){}
-	public DatasetLine(DBObject document){
-		id = (ObjectId) document.get("_id");
-		data = (BasicDBList) document.get("data");
-		pictureFilename = (String) document.get("picture_filename");
-	}
+    @Id private ObjectId id;
+	private List data;
+	@Property("picture_filename") private String pictureFilename;
+	
 	public ObjectId getId() {
 		return id;
 	}
 	public void setId(ObjectId id) {
 		this.id = id;
 	}
-	public ArrayList<?> getData() {
+	public List getData() {
 		return data;
 	}
-	public void setData(BasicDBList data) {
+	public void setData(List data) {
 		this.data = data;
 	}
 	public String getPictureFilename() {
@@ -32,7 +33,4 @@ public class DatasetLine {
 	public void setPictureFilename(String pictureFilename) {
 		this.pictureFilename = pictureFilename;
 	}
-	private ObjectId id;
-	private BasicDBList data;
-	private String pictureFilename;
 }

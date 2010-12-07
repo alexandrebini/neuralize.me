@@ -2,28 +2,23 @@ package neuralize.me.model;
 
 import org.bson.types.ObjectId;
 
-import com.mongodb.DBObject;
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 
+@Entity(value="dataset_columns", noClassnameStored=true)
 public class DatasetColumn {
 	public DatasetColumn(){}
-	public DatasetColumn(DBObject document){
-		id = (ObjectId) document.get("_id");
-		title = (String) document.get("title");
-		description = (String) document.get("description");
-		included = (Boolean) document.get("included");
-	}
+	
+	@Id private ObjectId id;
+	private String title;
+	private String description;
+	private boolean included;
 	
 	public ObjectId getId() {
 		return id;
 	}
 	public void setId(ObjectId id) {
 		this.id = id;
-	}
-	public ObjectId getDataset_id() {
-		return dataset_id;
-	}
-	public void setDataset_id(ObjectId dataset_id) {
-		this.dataset_id = dataset_id;
 	}
 	public String getTitle() {
 		return title;
@@ -43,10 +38,4 @@ public class DatasetColumn {
 	public void setIncluded(boolean included) {
 		this.included = included;
 	}
-
-	private ObjectId id;
-	private ObjectId dataset_id;
-	private String title;
-	private String description;
-	private boolean included;
 }

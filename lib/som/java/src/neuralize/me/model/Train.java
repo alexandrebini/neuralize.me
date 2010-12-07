@@ -1,10 +1,18 @@
 package neuralize.me.model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.bson.types.ObjectId;
+
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
+@SuppressWarnings("rawtypes")
+
+@Entity(value="trains", noClassnameStored=true)
 public class Train {
-	protected ArrayList inputs;
+	@Id private ObjectId id;
+	protected List inputs; 
 	protected int trainingTimes, currentTrainingTime;
 	protected int weightLines, weightColumns;
 	protected int startRange, endRange;
@@ -17,8 +25,7 @@ public class Train {
 	public static Train generate(){
 		Train train = new Train();
 		
-		train.inputs = new ArrayList();
-		train.inputs.add( 1 );
+		//train.inputs = List( "1", 2, 3, 4);
 		train.weightLines = train.weightColumns = 10;
 		train.trainingTimes = 5;
 		train.startRange = 5;
