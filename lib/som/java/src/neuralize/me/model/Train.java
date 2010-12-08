@@ -4,23 +4,19 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
 @SuppressWarnings("rawtypes")
 
-@Entity(value="trains", noClassnameStored=true)
 public class Train {
-	@Id private ObjectId id;
-	protected List inputs; 
-	protected int trainingTimes, currentTrainingTime;
-	protected int weightLines, weightColumns;
-	protected int startRange, endRange;
-	protected double startAlpha, endAlpha;
-	protected boolean randomizeWeights;
-	protected double startRandomWeights, endRandomWeights;
-	protected TrainResult[][] results;
-	protected Date startAt, endAt;
+	private ObjectId id;
+	private List inputs; 
+	private int trainingTimes, currentTrainingTime;
+	private int weightLines, weightColumns;
+	private int startRange, endRange;
+	private double startAlpha, endAlpha;
+	private boolean randomizeWeights;
+	private double startRandomWeights, endRandomWeights;
+	private TrainResult[][] results;
+	private Date startAt, endAt;
 	
 	public static Train generate(){
 		Train train = new Train();
@@ -34,6 +30,134 @@ public class Train {
 		train.endAlpha = 0.01;
 		
 		return train;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public List getInputs() {
+		return inputs;
+	}
+
+	public void setInputs(List inputs) {
+		this.inputs = inputs;
+	}
+
+	public int getTrainingTimes() {
+		return trainingTimes;
+	}
+
+	public void setTrainingTimes(int trainingTimes) {
+		this.trainingTimes = trainingTimes;
+	}
+
+	public int getCurrentTrainingTime() {
+		return currentTrainingTime;
+	}
+
+	public void setCurrentTrainingTime(int currentTrainingTime) {
+		this.currentTrainingTime = currentTrainingTime;
+	}
+
+	public int getWeightLines() {
+		return weightLines;
+	}
+
+	public void setWeightLines(int weightLines) {
+		this.weightLines = weightLines;
+	}
+
+	public int getWeightColumns() {
+		return weightColumns;
+	}
+
+	public void setWeightColumns(int weightColumns) {
+		this.weightColumns = weightColumns;
+	}
+
+	public int getStartRange() {
+		return startRange;
+	}
+
+	public void setStartRange(int startRange) {
+		this.startRange = startRange;
+	}
+
+	public int getEndRange() {
+		return endRange;
+	}
+
+	public void setEndRange(int endRange) {
+		this.endRange = endRange;
+	}
+
+	public double getStartAlpha() {
+		return startAlpha;
+	}
+
+	public void setStartAlpha(double startAlpha) {
+		this.startAlpha = startAlpha;
+	}
+
+	public double getEndAlpha() {
+		return endAlpha;
+	}
+
+	public void setEndAlpha(double endAlpha) {
+		this.endAlpha = endAlpha;
+	}
+
+	public boolean isRandomizeWeights() {
+		return randomizeWeights;
+	}
+
+	public void setRandomizeWeights(boolean randomizeWeights) {
+		this.randomizeWeights = randomizeWeights;
+	}
+
+	public double getStartRandomWeights() {
+		return startRandomWeights;
+	}
+
+	public void setStartRandomWeights(double startRandomWeights) {
+		this.startRandomWeights = startRandomWeights;
+	}
+
+	public double getEndRandomWeights() {
+		return endRandomWeights;
+	}
+
+	public void setEndRandomWeights(double endRandomWeights) {
+		this.endRandomWeights = endRandomWeights;
+	}
+
+	public TrainResult[][] getResults() {
+		return results;
+	}
+
+	public void setResults(TrainResult[][] results) {
+		this.results = results;
+	}
+
+	public Date getStartAt() {
+		return startAt;
+	}
+
+	public void setStartAt(Date startAt) {
+		this.startAt = startAt;
+	}
+
+	public Date getEndAt() {
+		return endAt;
+	}
+
+	public void setEndAt(Date endAt) {
+		this.endAt = endAt;
 	}
 	
 }

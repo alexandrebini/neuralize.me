@@ -3,17 +3,13 @@ package neuralize.me.model;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.annotations.Property;
 @SuppressWarnings("rawtypes")
 
-@Entity(value = "dataset_lines", noClassnameStored=true)
 public class DatasetLine {
-    @Id private ObjectId id;
+    private ObjectId id;
 	private List data;
-	@Property("picture_filename") private String pictureFilename;
+	private String pictureFilename;
+	private ObjectId datasetId;
 	
 	public ObjectId getId() {
 		return id;
@@ -32,5 +28,11 @@ public class DatasetLine {
 	}
 	public void setPictureFilename(String pictureFilename) {
 		this.pictureFilename = pictureFilename;
+	}
+	public ObjectId getDatasetId() {
+		return datasetId;
+	}
+	public void setDatasetId(ObjectId datasetId) {
+		this.datasetId = datasetId;
 	}
 }
