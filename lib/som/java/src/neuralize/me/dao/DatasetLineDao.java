@@ -47,17 +47,6 @@ public class DatasetLineDao {
 		coll.insert(doc);
 	}
 	
-	public static void test(){
-		DBObject myDoc = coll.findOne();
-		System.out.println(myDoc);
-		DatasetLine line = fromMongo(myDoc);
-		System.out.println( line );
-		for(Object o:line.getData()  ){
-			System.out.println(o);
-		}
-	}
-	
-	
 	private static BasicDBObject toMongo(DatasetLine datasetLine){
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("_id", datasetLine.getId());

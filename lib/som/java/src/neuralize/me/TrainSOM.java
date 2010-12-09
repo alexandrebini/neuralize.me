@@ -1,7 +1,5 @@
 package neuralize.me;
 
-import neuralize.me.dao.DatasetDao;
-import neuralize.me.model.Dataset;
 import neuralize.me.model.Train;
 
 public class TrainSOM extends Train {
@@ -22,8 +20,6 @@ public class TrainSOM extends Train {
 		//dataset.setTitle("aaaaaaaa");
 		//dataset.setDescription("Description");
 		//DatasetDao.insert(dataset);
-		
-		DatasetDao.test();
 		
 	}
 	

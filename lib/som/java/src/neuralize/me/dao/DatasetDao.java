@@ -2,11 +2,9 @@ package neuralize.me.dao;
 
 import java.util.Date;
 
-import javax.xml.crypto.Data;
+import neuralize.me.model.Dataset;
 
 import org.bson.types.ObjectId;
-
-import neuralize.me.model.Dataset;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -25,11 +23,6 @@ public class DatasetDao {
 		
 		BasicDBObject doc = toMongo(dataset);
 		coll.insert(doc);
-	}
-	
-	public static void test(){
-		Dataset dataset = fromMongo( coll.findOne() );
-		dataset.getClass();
 	}
 	
 	private static BasicDBObject toMongo( Dataset dataset ){
