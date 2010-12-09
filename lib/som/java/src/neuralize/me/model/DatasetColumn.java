@@ -6,6 +6,7 @@ public class DatasetColumn {
 	public DatasetColumn(){}
 	
 	private ObjectId id;
+	private ObjectId datasetId;
 	private String title;
 	private String description;
 	private boolean included;
@@ -16,6 +17,12 @@ public class DatasetColumn {
 	public void setId(ObjectId id) {
 		this.id = id;
 	}
+	public ObjectId getDatasetId() {
+		return datasetId;
+	}
+	public void setDatasetId(ObjectId datasetId) {
+		this.datasetId = datasetId;
+	}	
 	public String getTitle() {
 		return title;
 	}

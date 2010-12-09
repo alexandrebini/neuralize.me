@@ -1,7 +1,7 @@
 package neuralize.me;
 
-import neuralize.me.dao.DatasetLineDao;
-import neuralize.me.model.DatasetLine;
+import neuralize.me.dao.DatasetDao;
+import neuralize.me.model.Dataset;
 import neuralize.me.model.Train;
 
 public class TrainSOM extends Train {
@@ -10,29 +10,21 @@ public class TrainSOM extends Train {
 		
 		//DatasetLine line = new DatasetLine();
 		//line.setPictureFilename("test22.jpg");
-		DatasetLineDao.test();
+		//DatasetLineDao.test();
+		//DatasetColumnDao.test();
 		
 		//DatasetLineDao lineDao = new DatasetLineDao(); 
 		
 		//new DatasetLineDao();
 		//new DatasetDao();
-		/*
-		Dataset dataset = new Dataset();
-		dataset.setTitle("aaaaaaaa");
-		dataset.setDescription("Description");
 		
-		DatasetLine line = new DatasetLine();
-		line.setPictureFilename("test.jpg");
-		DatasetLineDao lineDao = new DatasetLineDao(); 
-		lineDao.save(line);
+		//Dataset dataset = new Dataset();
+		//dataset.setTitle("aaaaaaaa");
+		//dataset.setDescription("Description");
+		//DatasetDao.insert(dataset);
 		
-		List<DatasetLine> list = Arrays.asList(line);
+		DatasetDao.test();
 		
-		dataset.setDatasetLines(list);
-		
-		DatasetDao dao = new DatasetDao();
-		dao.save(dataset);
-		*/
 	}
 	
 }

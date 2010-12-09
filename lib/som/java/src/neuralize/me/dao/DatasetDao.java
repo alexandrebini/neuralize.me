@@ -1,4 +1,58 @@
 package neuralize.me.dao;
 
+import java.util.Date;
+
+import javax.xml.crypto.Data;
+
+import org.bson.types.ObjectId;
+
+import neuralize.me.model.Dataset;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+
 public class DatasetDao {
+	private static DBCollection coll = Connection.instance().getDB().getCollection("datasets");
+	
+	public DatasetDao(){
+		super();
+	}
+	
+	public static void insert(Dataset dataset){
+		dataset.setCreatedAt( new Date() );
+		dataset.setUpdatedAt( new Date() );
+		
+		BasicDBObject doc = toMongo(dataset);
+		coll.insert(doc);
+	}
+	
+	public static void test(){
+		Dataset dataset = fromMongo( coll.findOne() );
+		dataset.getClass();
+	}
+	
+	private static BasicDBObject toMongo( Dataset dataset ){
+		BasicDBObject doc = new BasicDBObject();
+		doc.put( "_id", dataset.getId() );
+		doc.put( "title", dataset.getTitle() );
+		doc.put( "description", dataset.getDescription() );
+		doc.put( "created_at", dataset.getCreatedAt() );
+		doc.put( "updated_at", dataset.getUpdatedAt() );
+		return doc;
+	}
+	
+	private static Dataset fromMongo(DBObject doc){
+		Dataset dataset = new Dataset();
+		dataset.setId( (ObjectId)doc.get("_id") );
+		dataset.setTitle( (String)doc.get("title") );
+		dataset.setDescription( (String)doc.get("description") );
+		dataset.setCreatedAt( (Date)doc.get("created_at") );
+		dataset.setUpdatedAt( (Date)doc.get("updated_at") );
+		
+		dataset.setDatasetLines( DatasetLineDao.findAllByDatasetId(dataset.getId()) );
+		
+		return dataset;
+	}
+	
 }
