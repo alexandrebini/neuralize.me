@@ -122,9 +122,9 @@ public class Train {
 		
 		train.inputs = new ArrayList<List>();
 		train.inputs.add( Arrays.asList(1, 2, 3, "teste") );
-		train.inputs.add( Arrays.asList(4, 5, 6, "teste") );
+		train.inputs.add( Arrays.asList(30, 50, 60, "Aasw") );
 		
-		train.weightLines = train.weightColumns = 5;
+		train.weightLines = train.weightColumns = 3;
 		train.trainingTimes = 5;
 		train.startRange = 5;
 		train.endRange = 1;
