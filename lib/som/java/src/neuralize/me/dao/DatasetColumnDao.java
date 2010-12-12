@@ -1,11 +1,15 @@
 package neuralize.me.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import neuralize.me.model.DatasetColumn;
 
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 
@@ -16,18 +20,30 @@ public class DatasetColumnDao {
 		super();
 	}
 	
+	public static DatasetColumn find(ObjectId id){
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", id);
+		return fromMongo( coll.findOne(query) );
+	}
+	
+	public static List<DatasetColumn> findAllByDatasetId(ObjectId id){
+		BasicDBObject query = new BasicDBObject();
+		query.put("dataset_id", id);
+		
+		List<DatasetColumn> result = new ArrayList<DatasetColumn>();
+		
+		DBCursor cur = coll.find(query);
+		while(cur.hasNext()){
+			result.add( fromMongo(cur.next()) );
+		}
+		
+		return result;
+	}
+	
 	public static void insert(DatasetColumn datasetColumn){
 		BasicDBObject doc = toMongo(datasetColumn);
 		coll.insert(doc);
 	}
-	
-	public static void test(){
-		DBObject myDoc = coll.findOne();
-		System.out.println(myDoc);
-		DatasetColumn column = fromMongo(myDoc);
-		System.out.println( column );
-	}
-	
 	
 	private static BasicDBObject toMongo(DatasetColumn datasetColumn){
 		BasicDBObject doc = new BasicDBObject();

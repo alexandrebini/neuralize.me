@@ -35,12 +35,11 @@ public class DatasetLineDao {
 		
 		DBCursor cur = coll.find(query);
 		while(cur.hasNext()){
-			DatasetLine line = fromMongo(cur.next());  
-			result.add( line );
+			result.add( fromMongo(cur.next()) );
 		}
 		
 		return result;
-	}	
+	}
 	
 	public static void insert(DatasetLine datasetLine){
 		BasicDBObject doc = toMongo(datasetLine);

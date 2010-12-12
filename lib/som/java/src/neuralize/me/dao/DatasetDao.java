@@ -16,6 +16,16 @@ public class DatasetDao {
 	public DatasetDao(){
 		super();
 	}
+
+	public static Dataset first(){
+		return fromMongo( coll.findOne() );
+	}
+	
+	public static Dataset find(ObjectId id){
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", id);
+		return fromMongo( coll.findOne(query) );
+	}
 	
 	public static void insert(Dataset dataset){
 		dataset.setCreatedAt( new Date() );
@@ -44,6 +54,7 @@ public class DatasetDao {
 		dataset.setUpdatedAt( (Date)doc.get("updated_at") );
 		
 		dataset.setDatasetLines( DatasetLineDao.findAllByDatasetId(dataset.getId()) );
+		dataset.setDatasetColumns( DatasetColumnDao.findAllByDatasetId(dataset.getId()) );
 		
 		return dataset;
 	}
