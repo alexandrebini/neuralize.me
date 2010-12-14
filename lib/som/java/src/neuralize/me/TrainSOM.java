@@ -1,6 +1,7 @@
 package neuralize.me;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -103,18 +104,45 @@ public class TrainSOM {
 	
 	private void startTrain(){
 		for(int time=0; time<train.getTrainingTimes(); time++){
-			Number alpha = alphas.get(time);
-			Number range = ranges.get(time);
+			Double alpha = alphas.get(time);
+			Double range = ranges.get(time);
 			
 			for( List<Double> input:inputs ){
 				List<Integer> closer = Distance.closer(input, weights);
-				learn(input, closer);
+				learn(input, closer, alpha, range);
+			}
+			
+			updatePositions(time);
+		}
+	}
+	
+	private void learn(List<Double> input, List<Integer> closer, Double alpha, Double range){
+		for(int i=0; i<weights.size(); i++ ){
+			List<List<Double>> line = weights.get(i);
+			
+			for(int j=0; j<line.size(); j++){
+				List<Double> column = line.get(j);
+				List<Integer> point = Arrays.asList(i,j);
+				
+				if(Distance.inRange(point, closer, range)){
+					for(int k=0; k<column.size(); k++){
+						column.set(k, column.get(k) + relativeAlpha(alpha, closer, point) * (input.get(k)-column.get(k)) );
+					}
+				}else if(Distance.indexDistance(closer, point) == range+1){
+					for(int k=0; k<column.size(); k++){
+						column.set(k, column.get(k) - relativeAlpha(alpha, closer, point) * (input.get(k)-column.get(k)) );
+					}
+				}
 			}
 		}
 	}
 	
-	private void learn(List<Double> input, List<Integer> closer){
+	private void updatePositions(int time){
 		
+	}
+	
+	private double relativeAlpha(Double alpha, List<Integer>closer, List<Integer>point){
+		return alpha/(Distance.indexDistance(closer, point)+1);
 	}
 	
 }

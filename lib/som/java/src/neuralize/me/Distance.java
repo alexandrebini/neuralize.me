@@ -11,8 +11,8 @@ public class Distance {
 		return Math.sqrt(dist);
 	}
 	
-	public static int indexDistance(int[] closer, int [] point){
-		return Math.max( Math.abs(closer[0] - point[0]), Math.abs(closer[1]-point[1]) );
+	public static int indexDistance(List<Integer> closer, List<Integer> point){
+		return Math.max( Math.abs(closer.get(0) - point.get(0)), Math.abs(closer.get(1)-point.get(1)) );
 	}
 	
 	public static List<Integer> closer(List<Double> x, List<List<List<Double>>> array){
@@ -33,7 +33,7 @@ public class Distance {
 		return closer;
 	}
 	
-	public static boolean inRange(int[] point, int[] closer, int range){
+	public static boolean inRange(List<Integer> point, List<Integer> closer, Double range){
 		return indexDistance(closer, point) <= range;
 	}
 }
