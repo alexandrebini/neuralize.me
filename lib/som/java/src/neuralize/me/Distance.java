@@ -33,7 +33,7 @@ public class Distance {
 		return closer;
 	}
 	
-	public static boolean inRange(List<Integer> point, List<Integer> closer, Double range){
+	public static boolean inRange(List<Integer> point, List<Integer> closer, Integer range){
 		return indexDistance(closer, point) <= range;
 	}
 }

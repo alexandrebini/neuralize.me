@@ -13,7 +13,7 @@ public class TrainSOM {
 	private Train train;
 	private List<List<Double>> inputs;
 	private List<List<List<Double>>> weights;
-	private List<Double> ranges;
+	private List<Integer> ranges;
 	private List<Double> alphas;
 	private Logger logger;
 	
@@ -27,8 +27,8 @@ public class TrainSOM {
 		treatInputs();
 		createWeights();
 		
-		ranges = Distribution.distribute(train.getStartRange(), train.getEndRange(), train.getTrainingTimes(), true);
-		alphas = Distribution.distribute(train.getStartAlpha(), train.getEndAlpha(), train.getTrainingTimes(), false);
+		ranges = Distribution.distributeInteger(train.getStartRange(), train.getEndRange(), train.getTrainingTimes());
+		alphas = Distribution.distribute(train.getStartAlpha(), train.getEndAlpha(), train.getTrainingTimes());
 		
 		train.setStartAt( new Date() );
 		//train.setResults(results);
@@ -108,19 +108,24 @@ public class TrainSOM {
 	private void train(){
 		for(int time=0; time<train.getTrainingTimes(); time++){
 			Double alpha = alphas.get(time);
-			Double range = ranges.get(time);
+			Integer range = ranges.get(time);
+			
+			logger.step(time+1, train.getTrainingTimes(), range, alpha);
 			
 			for( List<Double> input:inputs ){
 				List<Integer> closer = Distance.closer(input, weights);
+				logger.input(input);
+				logger.weights(weights, input, closer, range);
 				learn(input, closer, alpha, range);
-				logger.out(weights, input, closer, time, train.getTrainingTimes(), range, alpha);
 			}
+			
+			logger.finalizeStep();
 			
 			updatePositions(time);
 		}
 	}
 	
-	private void learn(List<Double> input, List<Integer> closer, Double alpha, Double range){
+	private void learn(List<Double> input, List<Integer> closer, Double alpha, Integer range){
 		for(int i=0; i<weights.size(); i++ ){
 			List<List<Double>> line = weights.get(i);
 			

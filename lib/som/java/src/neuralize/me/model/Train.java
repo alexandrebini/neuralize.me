@@ -122,10 +122,10 @@ public class Train {
 		
 		train.id = new ObjectId("4d00a7913d65fd0ecd000001");
 		train.inputs = new ArrayList<List>();
-		train.inputs.add( Arrays.asList(1, 2, 3, "teste") );
-		train.inputs.add( Arrays.asList(30, 50, 60, "Aasw") );
+		train.inputs.add( Arrays.asList(1, 2, 3, 5, 10, 12, "teste") );
+		train.inputs.add( Arrays.asList(30, 50, 60, 1, 2, 3, "Aasw") );
 		
-		train.weightLines = train.weightColumns = 10;
+		train.weightLines = train.weightColumns = 20;
 		train.trainingTimes = 5;
 		train.startRange = 5;
 		train.endRange = 1;

@@ -9,36 +9,84 @@ body {
 .step {
   margin-top: 20px;
   font-weight: bold; }
-  .step table {
+  .step .header {
+    text-align: center; }
+  .step .input {
+    font-weight: normal;
+    margin-top: 20px;
+    font-size: 11px; }
+    .step .input .title {
+      font-weight: bold;
+      font-size: 14px; }
+  .step table.weights {
     width: 100%;
     padding: 20px;
     border-spacing: 0;
     border-collapse: collapse;
     clear: both;
     table-layout: fixed; }
-    .step table tr {
+    .step table.weights tr {
       border-collapse: collapse; }
-      .step table tr td {
+      .step table.weights tr td {
         overflow: hidden;
         white-space: nowrap;
         border: 1px solid #cccccc;
         text-align: center;
         font-family: Monospace;
-        font-size: 11px; }
-        .step table tr td span {
-          padding-left: 5px;
-          padding-right: 5px; }
-        .step table tr td.closer {
-          background: #006400; }
-        .step table tr td.range_1 {
-          background: #aaaaaa; }
-        .step table tr td.range_2 {
-          background: #bbbbbb; }
-        .step table tr td.range_3 {
-          background: #cccccc; }
-        .step table tr td.range_4 {
-          background: #dddddd; }
-        .step table tr td.range_4 {
-          background: #eeeeee; }
-        .step table tr td.first_out {
-          background: #999999; }
+        font-size: 11px;
+        font-weight: normal; }
+        .step table.weights tr td table {
+          table-layout: fixed;
+          width: 100%; }
+          .step table.weights tr td table tr td {
+            border: none;
+            padding-left: 1px;
+            padding-left: 1px; }
+          .step table.weights tr td table.input {
+            border: none; }
+          .step table.weights tr td table.closer {
+            background: #fbf325; }
+          .step table.weights tr td table.first_out {
+            background: #38b6d6; }
+          .step table.weights tr td table.range_1 {
+            background: #357dc0; }
+          .step table.weights tr td table.range_2 {
+            background: #3c80c0; }
+          .step table.weights tr td table.range_3 {
+            background: #4484c1; }
+          .step table.weights tr td table.range_4 {
+            background: #4b88c1; }
+          .step table.weights tr td table.range_5 {
+            background: #538cc2; }
+          .step table.weights tr td table.range_6 {
+            background: #5a90c3; }
+          .step table.weights tr td table.range_7 {
+            background: #6294c3; }
+          .step table.weights tr td table.range_8 {
+            background: #6998c4; }
+          .step table.weights tr td table.range_9 {
+            background: #719cc4; }
+          .step table.weights tr td table.range_10 {
+            background: #78a0c5; }
+          .step table.weights tr td table.range_11 {
+            background: #80a4c6; }
+          .step table.weights tr td table.range_12 {
+            background: #88a8c6; }
+          .step table.weights tr td table.range_13 {
+            background: #8facc7; }
+          .step table.weights tr td table.range_14 {
+            background: #97b0c7; }
+          .step table.weights tr td table.range_15 {
+            background: #9eb4c8; }
+          .step table.weights tr td table.range_16 {
+            background: #a6b8c9; }
+          .step table.weights tr td table.range_17 {
+            background: #adbcc9; }
+          .step table.weights tr td table.range_18 {
+            background: #b5c0ca; }
+          .step table.weights tr td table.range_19 {
+            background: #bcc4ca; }
+          .step table.weights tr td table.range_20 {
+            background: #c4c8cb; }
+          .step table.weights tr td table.range_21 {
+            background: #cccccc; }

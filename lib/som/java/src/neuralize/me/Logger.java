@@ -19,24 +19,26 @@ public class Logger {
 		fileName = "log/" + trainId.toString() + ".html";
 	}
 	
-	public void out(List<List<List<Double>>> weights, List<Double>input, List<Integer>closer, int time, int trainingTimes, Double range, Double alpha){
+	public void step(int time, int trainingTimes, Integer range, Double alpha){
 		stream += "<div class='step'>";
-		step(time, trainingTimes, input, range, alpha);
-		weights(weights, input, closer, range);
+		stream += "<div class='header'>" +
+				" Step: " + time + "/" + trainingTimes +
+				" Neighborhood: " + range.toString() + 
+				" Alpha: " + alpha.toString()+
+				"</div>";
+	}
+	
+	public void input(List<Double>input){
+		stream += "<div class='input'> <span class='title'>Input: </span>" + input.toString() + "</div>";
+	}
+	
+	public void finalizeStep(){
 		stream += "</div>";
-		
 		write();
 	}
 	
-	private void step(int time, int trainingTimes, List<Double>input, Double range, Double alpha){
-		stream += " Step: " + time + "/" + trainingTimes +
-					" Input: " + input.toString() + 
-					" Neighborhood: " + range.toString() + 
-					" Alpha: " + alpha.toString();
-	}
-	
-	private void weights(List<List<List<Double>>> weights, List<Double>input, List<Integer>closer, Double range){
-		stream += "<table><tbody>";
+	public void weights(List<List<List<Double>>> weights, List<Double>input, List<Integer>closer, Integer range){
+		stream += "<table class='weights'><tbody>";
 		for(int i=0; i<weights.size(); i++ ){
 			List<List<Double>> line = weights.get(i);
 			
@@ -47,21 +49,20 @@ public class Logger {
 				List<Integer> point = Arrays.asList(i,j);
 
 				Integer distance = Distance.indexDistance(closer, point);
+				String tdClass = new String();
 				
 				if(distance == 0){
-					stream += "<td class='closer'>";
+					tdClass = "closer";
 				}else if( distance <= range){
-					stream += "<td class='range_"+distance.toString()+"'>";
+					tdClass = "range_"+distance.toString();
 				}else if(distance == range+1){
-					stream += "<td class='first_out'>";
-				}else{
-					stream += "<td>";
+					tdClass = "first_out";
 				}
 				
+				stream += "<td><table class='"+tdClass+"'><tbody><tr>";
 				for(int k=0; k<column.size(); k++)
-					stream += "<span>" + formater.format(column.get(k)) + "</span>";
-				
-				stream += "</td>";
+					stream += "<td>" + formater.format(column.get(k)) + "</td>";
+				stream += "</tr></tbody></table></td>";
 			}
 			
 			stream += "</tr>";
