@@ -48,8 +48,8 @@ class RubySOM
           closer = closer(input, @weights)
           learn(input, closer)
 
-          #step_out(time, @training_times, input, @range, @alpha)
-          #colorized_out(@weights, closer, @range)
+          step_out(time, @training_times, input, @range, @alpha)
+          colorized_out(@weights, closer, @range)
         end
         update_positions(time)
       end

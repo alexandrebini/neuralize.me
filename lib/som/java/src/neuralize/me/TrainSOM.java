@@ -15,12 +15,15 @@ public class TrainSOM {
 	private List<List<List<Double>>> weights;
 	private List<Double> ranges;
 	private List<Double> alphas;
+	private Logger logger;
 	
 	public TrainSOM(){
 		start();
 	}
 	public void start(){
 		train = Train.generate();
+		
+		logger = new Logger(train.getId());
 		treatInputs();
 		createWeights();
 		
@@ -29,7 +32,7 @@ public class TrainSOM {
 		
 		train.setStartAt( new Date() );
 		//train.setResults(results);
-		startTrain();
+		train();
 	}
 	
 	private void treatInputs(){
@@ -102,7 +105,7 @@ public class TrainSOM {
 		}
 	}
 	
-	private void startTrain(){
+	private void train(){
 		for(int time=0; time<train.getTrainingTimes(); time++){
 			Double alpha = alphas.get(time);
 			Double range = ranges.get(time);
@@ -110,6 +113,7 @@ public class TrainSOM {
 			for( List<Double> input:inputs ){
 				List<Integer> closer = Distance.closer(input, weights);
 				learn(input, closer, alpha, range);
+				logger.out(weights, input, closer, time, train.getTrainingTimes(), range, alpha);
 			}
 			
 			updatePositions(time);
@@ -138,7 +142,6 @@ public class TrainSOM {
 	}
 	
 	private void updatePositions(int time){
-		
 	}
 	
 	private double relativeAlpha(Double alpha, List<Integer>closer, List<Integer>point){

@@ -22,17 +22,12 @@ class Train
   key :end_at, Time
   
   key :language, String
-  key :thread_id, Integer
-  key :som_id, Integer
   
   timestamps!
 
   def start
     som = new_som
-    new_thread = Thread.new do
-      som.start!
-    end
-    update_attributes(:finished => false, :start_at => som.start_at, :som_id => som.object_id, :thread_id => new_thread.object_id)
+    som.start!
   end
 
   def update_positions
@@ -83,7 +78,7 @@ class Train
   class << self
     def generate
       Train.new(
-        :weight_lines => 15, :weight_columns => 15, 
+        :weight_lines => 10, :weight_columns => 10, 
         :dataset_id => Dataset.first.id, :training_times => 500, 
         :start_range => 7, :end_range => 2, 
         :start_alpha => 0.1, :end_alpha => 0.01,
