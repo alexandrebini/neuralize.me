@@ -2,7 +2,11 @@ package neuralize.me.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+
+import neuralize.me.model.Train;
+import neuralize.me.model.TrainResult;
 
 import org.bson.types.ObjectId;
 
@@ -10,9 +14,7 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-
-import neuralize.me.model.Train;
-import neuralize.me.model.TrainResult;
+@SuppressWarnings("unchecked")
 
 public class TrainDao {
 	private static DBCollection coll = Connection.instance().getDB().getCollection("trains");
@@ -30,12 +32,12 @@ public class TrainDao {
 	public static void insert(Train train){
 		BasicDBObject doc = toMongo(train);
 		coll.insert(doc);
-		train = fromMongo(doc);
+		fromMongo(doc, train);
 	}
 	
 	private static BasicDBObject toMongo(Train train){
 		BasicDBObject doc = new BasicDBObject();
-		//doc.put( "_id", train.getId() );
+		doc.put( "_id", train.getId() );
 		doc.put("training_times", train.getTrainingTimes());
 		doc.put("current_training_time", train.getCurrentTrainingTime());
 		doc.put("weight_lines", train.getWeightLines());
@@ -53,8 +55,7 @@ public class TrainDao {
 		return doc;
 	}
 	
-	private static Train fromMongo(DBObject doc){
-		Train train = new Train();
+	private static Train fromMongo(DBObject doc, Train train){
 		train.setId( (ObjectId)doc.get("_id") );
 		train.setTrainingTimes( (Integer)doc.get("training_times") );
 		train.setCurrentTrainingTime( (Integer)doc.get("current_training_time") );
@@ -70,6 +71,10 @@ public class TrainDao {
 		train.setEndAt( (Date)doc.get("end_at") );
 		train.setResults( resultsFromMongo( (BasicDBList)doc.get("results") ) );
 		return train;
+	}
+	
+	private static Train fromMongo(DBObject doc){
+		return fromMongo( doc, new Train() );
 	}
 	
 	private static BasicDBList resultsToMongo(Train train){
@@ -88,7 +93,18 @@ public class TrainDao {
 	
 	private static List<List<TrainResult>> resultsFromMongo(BasicDBList doc){
 		List<List<TrainResult>> results = new ArrayList<List<TrainResult>>();
+		Iterator<Object> iterator = doc.iterator();
 		
+		while(iterator.hasNext()){
+			List<TrainResult> trainResults = new ArrayList<TrainResult>();
+			results.add(trainResults);
+			
+			for(BasicDBObject result:(List<BasicDBObject>)iterator.next()){
+				trainResults.add( TrainResultDao.fromMongo(result) );
+			}
+				
+		}
+		System.out.println(results);
 		return results;
 	}
 	

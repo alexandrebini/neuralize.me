@@ -34,9 +34,8 @@ public class DatasetLineDao {
 		List<DatasetLine> result = new ArrayList<DatasetLine>();
 		
 		DBCursor cur = coll.find(query);
-		while(cur.hasNext()){
+		while(cur.hasNext())
 			result.add( fromMongo(cur.next()) );
-		}
 		
 		return result;
 	}
@@ -44,6 +43,7 @@ public class DatasetLineDao {
 	public static void insert(DatasetLine datasetLine){
 		BasicDBObject doc = toMongo(datasetLine);
 		coll.insert(doc);
+		fromMongo(doc, datasetLine);
 	}
 	
 	private static BasicDBObject toMongo(DatasetLine datasetLine){
@@ -54,14 +54,14 @@ public class DatasetLineDao {
 		doc.put("picture_filename", datasetLine.getPictureFilename());
 		return doc;
 	}
-	
-	private static DatasetLine fromMongo(DBObject doc){
-		if(doc==null) return null;
-		DatasetLine datasetLine = new DatasetLine();
+	private static DatasetLine fromMongo(DBObject doc, DatasetLine datasetLine){
 		datasetLine.setId( (ObjectId)doc.get("_id") );
 		datasetLine.setData( (List)doc.get("data") );
 		datasetLine.setDatasetId( (ObjectId)doc.get("dataset_id") );
 		datasetLine.setPictureFilename( (String)doc.get("picture_filename") );
 		return datasetLine;
+	}
+	private static DatasetLine fromMongo(DBObject doc){
+		return fromMongo(doc, new DatasetLine());
 	}
 }

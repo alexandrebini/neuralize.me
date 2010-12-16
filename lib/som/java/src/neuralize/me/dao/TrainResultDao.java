@@ -2,8 +2,6 @@ package neuralize.me.dao;
 
 import neuralize.me.model.TrainResult;
 
-import org.bson.BSONObject;
-
 import com.mongodb.BasicDBObject;
 
 public class TrainResultDao {
@@ -15,7 +13,7 @@ public class TrainResultDao {
 		return doc;
 	}
 	
-	public static TrainResult fromMongo(BSONObject doc){
+	public static TrainResult fromMongo(BasicDBObject doc){
 		TrainResult result = new TrainResult();
 		result.setIndex( (Integer)doc.get("index") );
 		result.setX( (Integer)doc.get("x") );

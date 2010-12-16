@@ -44,9 +44,7 @@ public class DatasetDao {
 		doc.put( "updated_at", dataset.getUpdatedAt() );
 		return doc;
 	}
-	
-	private static Dataset fromMongo(DBObject doc){
-		Dataset dataset = new Dataset();
+	private static Dataset fromMongo(DBObject doc, Dataset dataset){
 		dataset.setId( (ObjectId)doc.get("_id") );
 		dataset.setTitle( (String)doc.get("title") );
 		dataset.setDescription( (String)doc.get("description") );
@@ -57,6 +55,9 @@ public class DatasetDao {
 		dataset.setDatasetColumns( DatasetColumnDao.findAllByDatasetId(dataset.getId()) );
 		
 		return dataset;
+	}
+	private static Dataset fromMongo(DBObject doc){
+		return fromMongo(doc, new Dataset());
 	}
 	
 }
