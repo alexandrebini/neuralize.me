@@ -17,7 +17,7 @@ public class Train {
 	private double startAlpha, endAlpha;
 	private boolean randomizeWeights;
 	private double startRandomWeights, endRandomWeights;
-	private TrainResult[][] results;
+	private List<List<TrainResult>> results;
 	private Date startAt, endAt;
 	
 	public ObjectId getId() {
@@ -98,10 +98,10 @@ public class Train {
 	public void setEndRandomWeights(double endRandomWeights) {
 		this.endRandomWeights = endRandomWeights;
 	}
-	public TrainResult[][] getResults() {
+	public List<List<TrainResult>> getResults() {
 		return results;
 	}
-	public void setResults(TrainResult[][] results) {
+	public void setResults(List<List<TrainResult>> results) {
 		this.results = results;
 	}
 	public Date getStartAt() {
@@ -116,7 +116,11 @@ public class Train {
 	public void setEndAt(Date endAt) {
 		this.endAt = endAt;
 	}
-	
+	public void addResult(List<TrainResult> result){
+		if(results==null)
+			results = new ArrayList<List<TrainResult>>();
+		results.add(result);
+	}
 	public static Train generate(){
 		Train train = new Train();
 		

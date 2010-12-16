@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import neuralize.me.dao.TrainDao;
 import neuralize.me.model.Train;
+import neuralize.me.model.TrainResult;
 @SuppressWarnings("rawtypes")
 
 public class TrainSOM {
@@ -147,6 +149,15 @@ public class TrainSOM {
 	}
 	
 	private void updatePositions(int time){
+		List<TrainResult> result = new ArrayList<TrainResult>();
+		for(int i=0; i<inputs.size(); i++){
+			List<Integer> closer = Distance.closer(inputs.get(i), weights);
+			result.add( new TrainResult(i, closer.get(0), closer.get(1) ) );
+		}
+		train.addResult(result);
+		train.setCurrentTrainingTime(time);
+		TrainDao.insert(train);
+		System.out.println(train);
 	}
 	
 	private double relativeAlpha(Double alpha, List<Integer>closer, List<Integer>point){
